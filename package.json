@@ -10,7 +10,8 @@
     "preview": "vite preview",
     "electron": "electron .",
     "electron:dev": "npm run build && electron .",
-    "start": "concurrently -k \"vite\" \"wait-on http://localhost:5173 && electron .\"",
+    "server": "node api.js",
+    "start": "node api.js",
     "setup-icons": "node build/generate-icons.js",
     "check-build": "node build/check-setup.js",
     "dist": "npm run check-build && npm run build && electron-builder"

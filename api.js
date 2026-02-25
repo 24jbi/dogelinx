@@ -133,7 +133,15 @@ app.post('/api/download-studio', (req, res) => {
     
     archive.on('error', (err) => {
       console.error('Archive error:', err);
-      res.status(500).json({ ok: false, error: err.message });
+      if (!res.headersSent) {
+        res.status(500).json({ ok: false, error: err.message });
+      } else {
+        res.end();
+      }
+    });
+
+    archive.on('finish', () => {
+      console.log('Studio ZIP created successfully');
     });
 
     archive.pipe(res);
@@ -158,6 +166,11 @@ app.post('/api/download-studio', (req, res) => {
       res.status(500).json({ ok: false, error: err.message });
     }
   }
+});
+
+// Catch-all 404 handler
+app.use((req, res) => {
+  res.status(404).json({ ok: false, error: 'Endpoint not found', path: req.path });
 });
 
 app.listen(PORT, () => {

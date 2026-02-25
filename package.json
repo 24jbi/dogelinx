@@ -2,16 +2,22 @@
   "name": "dogelinx-studio",
   "version": "0.1.0",
   "description": "DogeLinx Studio - A Roblox-like game creation platform",
-  "main": "electron-main.js",
+  "main": "api.js",
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  },
   "homepage": "./",
   "scripts": {
     "dev": "vite",
     "build:web": "vite build",
+    "build": "echo 'Build disabled for production'",
     "preview": "vite preview",
     "electron": "electron .",
     "electron:dev": "npm run build:web && electron .",
     "server": "node api.js",
     "start": "node api.js",
+    "heroku-postbuild": "echo 'Skipping build'",
     "setup-icons": "node build/generate-icons.js",
     "check-build": "node build/check-setup.js",
     "dist": "npm run check-build && npm run build:web && electron-builder"

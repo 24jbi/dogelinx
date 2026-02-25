@@ -5,7 +5,8 @@
 export async function downloadStudio() {
   try {
     // Fetch zip from server
-    const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:4000';
+    const isProduction = typeof window !== 'undefined' && window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1';
+    const apiUrl = import.meta.env.VITE_API_URL || (isProduction ? 'https://veubc5rb.up.railway.app' : 'http://localhost:4000');
     const response = await fetch(`${apiUrl}/api/download-studio`, {
       method: 'POST',
       headers: {

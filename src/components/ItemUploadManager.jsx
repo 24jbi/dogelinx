@@ -24,7 +24,8 @@ export default function ItemUploadManager() {
 
   const loadMyItems = async (username) => {
     try {
-      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:4000';
+      const isProduction = typeof window !== 'undefined' && window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1';
+      const apiUrl = import.meta.env.VITE_API_URL || (isProduction ? 'https://veubc5rb.up.railway.app' : 'http://localhost:4000');
       const res = await fetch(`${apiUrl}/api/items/creator/${username}`);
       if (res.ok) {
         const data = await res.json();

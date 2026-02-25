@@ -25,11 +25,26 @@ app.get('/api/health', (req, res) => {
   res.json({ ok: true, status: 'healthy', timestamp: new Date().toISOString() });
 });
 
-const DATA_DIR = path.join(__dirname, 'server', 'data');
+let DATA_DIR = path.join(__dirname, 'server', 'data');
 try {
-  if (!fs.existsSync(DATA_DIR)) fs.mkdirSync(DATA_DIR, { recursive: true });
+  if (!fs.existsSync(DATA_DIR)) {
+    fs.mkdirSync(DATA_DIR, { recursive: true });
+    console.log(`📁 Created data directory: ${DATA_DIR}`);
+  }
 } catch (err) {
-  console.error('Failed to create data directory:', err);
+  console.error('⚠️ Failed to create data directory:', err.message);
+  console.log('⚠️ Using /tmp instead...');
+  DATA_DIR = '/tmp/dogelinx-data';
+  try {
+    if (!fs.existsSync(DATA_DIR)) fs.mkdirSync(DATA_DIR, { recursive: true });
+    console.log(`📁 Using temp directory: ${DATA_DIR}`);
+  } catch (e) {
+    console.error('🔴 Failed to create temp directory:', e.message);
+    // Last resort - use current directory
+    DATA_DIR = path.join(process.cwd(), 'data');
+    fs.mkdirSync(DATA_DIR, { recursive: true });
+    console.log(`📁 Using fallback directory: ${DATA_DIR}`);
+  }
 }
 
 const GAMES_FILE = path.join(DATA_DIR, 'games.json');

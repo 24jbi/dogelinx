@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import DownloadFlow from "./DownloadFlow.jsx";
 import { downloadStudio } from "../utils/studioDownload.js";
+import { API_BASE_URL } from "../utils/apiClient.js";
 
 export default function Landing() {
   const navigate = useNavigate();
@@ -41,7 +42,7 @@ export default function Landing() {
       setAuthError(null);
       
       const endpoint = authMode === "signin" ? "/api/auth/signin" : "/api/auth/signup";
-      const res = await fetch(endpoint, {
+      const res = await fetch(`${API_BASE_URL}${endpoint}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username, password }),

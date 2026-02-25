@@ -32,7 +32,7 @@ export function AvatarShop({ userTokens: initialTokens = 0, onPurchaseItem, owne
   const loadItems = async () => {
     try {
       const isProduction = typeof window !== 'undefined' && window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1';
-      const apiUrl = import.meta.env.VITE_API_URL || (isProduction ? 'https://veubc5rb.up.railway.app' : 'http://localhost:4000');
+      const apiUrl = import.meta.env.VITE_API_URL || (isProduction ? 'https://dogelinx-backend.onrender.com' : 'http://localhost:4000');
       const res = await fetch(`${apiUrl}/api/items`);
       if (res.ok) {
         const data = await res.json();
@@ -68,7 +68,7 @@ export function AvatarShop({ userTokens: initialTokens = 0, onPurchaseItem, owne
     try {
       setPurchasing(true);
       const isProduction = typeof window !== 'undefined' && window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1';
-      const apiUrl = import.meta.env.VITE_API_URL || (isProduction ? 'https://veubc5rb.up.railway.app' : 'http://localhost:4000');
+      const apiUrl = import.meta.env.VITE_API_URL || (isProduction ? 'https://dogelinx-backend.onrender.com' : 'http://localhost:4000');
       
       const res = await fetch(`${apiUrl}/api/items/buy`, {
         method: "POST",

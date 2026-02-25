@@ -1,0 +1,8 @@
+{
+  "files.associations": {
+    "*.luau": "lua"
+  },
+  "[lua]": {
+    "editor.formatOnSave": true
+  }
+}

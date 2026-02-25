@@ -1,0 +1,100 @@
+{
+  "name": "dogelinx-studio",
+  "version": "0.1.0",
+  "description": "DogeLinx Studio - A Roblox-like game creation platform",
+  "main": "electron-main.js",
+  "homepage": "./",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "electron": "electron .",
+    "electron:dev": "npm run build && electron .",
+    "start": "concurrently -k \"vite\" \"wait-on http://localhost:5173 && electron .\"",
+    "setup-icons": "node build/generate-icons.js",
+    "check-build": "node build/check-setup.js",
+    "dist": "npm run check-build && npm run build && electron-builder"
+  },
+  "build": {
+    "appId": "com.dogelinx.studio",
+    "productName": "DogeLinx Studio",
+    "artifactName": "${productName}-${version}.${ext}",
+    "files": [
+      "dist/**/*",
+      "electron-main.js",
+      "preload.cjs",
+      "node_modules/**/*"
+    ],
+    "directories": {
+      "buildResources": "assets"
+    },
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64",
+            "ia32"
+          ]
+        },
+        {
+          "target": "portable",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "certificateFile": null,
+      "certificatePassword": null
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "DogeLinx Studio",
+      "installerIcon": "assets/icon.ico",
+      "uninstallerIcon": "assets/icon.ico",
+      "installerHeaderIcon": "assets/icon.ico"
+    },
+    "portable": {
+      "artifactName": "${productName}-portable-${version}.${ext}"
+    },
+    "fileAssociations": [
+      {
+        "ext": "dlxplace",
+        "name": "DogeLinx Place File",
+        "description": "DogeLinx game project file",
+        "role": "Editor",
+        "icon": "assets/icon.ico"
+      }
+    ],
+    "publish": {
+      "provider": "github",
+      "owner": "username",
+      "repo": "dogelinx",
+      "private": false
+    }
+  },
+  "dependencies": {
+    "@monaco-editor/react": "^4.7.0",
+    "@react-three/drei": "^10.7.7",
+    "@react-three/fiber": "^9.5.0",
+    "@supabase/supabase-js": "^2.97.0",
+    "nanoid": "^5.1.6",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "react-router-dom": "^7.0.0",
+    "three": "^0.183.0",
+    "zustand": "^5.0.11"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^5.1.4",
+    "concurrently": "^9.2.1",
+    "electron": "^40.6.0",
+    "electron-builder": "^25.1.8",
+    "electron-is-dev": "^3.0.1",
+    "vite": "^7.3.1",
+    "wait-on": "^8.0.5"
+  }
+}

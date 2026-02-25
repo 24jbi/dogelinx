@@ -2,16 +2,15 @@
  * Generate a download of the DogeLinx studio
  * (Minimal bundle without all project files)
  */
-import { getApiUrl } from './apiConfig';
+import { get, API_BASE_URL } from './apiClient';
 
 export async function downloadStudio() {
   try {
-    const apiUrl = getApiUrl();
     console.log('📥 Initiating studio download...');
-    console.log('📡 API URL:', apiUrl);
+    console.log('📡 API URL:', API_BASE_URL);
     console.log('🌍 Hostname:', window.location.hostname);
     
-    const downloadUrl = `${apiUrl}/api/download-studio`;
+    const downloadUrl = `${API_BASE_URL}/api/download-studio`;
     console.log('📍 Request URL:', downloadUrl);
     
     const response = await fetch(downloadUrl, {

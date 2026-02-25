@@ -1,6 +1,8 @@
 /**
  * MultiplayerClient - Client-side WebSocket manager for multiplayer games
  */
+import { API_BASE_URL } from './apiClient';
+
 class MultiplayerClient {
   constructor(gameId, username = null) {
     this.gameId = gameId;
@@ -22,8 +24,7 @@ class MultiplayerClient {
   async connect() {
     try {
       // Get WebSocket URL from API
-      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:4000';
-      const response = await fetch(`${apiUrl}/api/games/${this.gameId}/sessions`, {
+      const response = await fetch(`${API_BASE_URL}/api/games/${this.gameId}/sessions`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username: this.username })

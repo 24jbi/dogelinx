@@ -1,8 +1,5 @@
 {
-  "buildCommand": "npm run build",
-  "outputDirectory": "dist",
-  "framework": "vite",
-  "env": {
-    "VITE_API_URL": "@VITE_API_URL"
-  }
+  "buildCommand": "npm --workspace=client run build",
+  "outputDirectory": "client/dist",
+  "framework": "vite"
 }

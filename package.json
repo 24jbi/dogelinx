@@ -1,26 +1,31 @@
 {
   "name": "dogelinx-studio",
   "version": "0.1.0",
-  "description": "DogeLinx Studio - A Roblox-like game creation platform",
-  "main": "api.js",
+  "description": "DogeLinx Studio Monorepo - A Roblox-like game creation platform",
+  "private": true,
+  "workspaces": [
+    "client",
+    "backend",
+    "desktop",
+    "shared"
+  ],
   "engines": {
     "node": ">=18.0.0",
     "npm": ">=9.0.0"
   },
-  "homepage": "./",
   "scripts": {
-    "dev": "vite",
-    "build:web": "vite build",
-    "build": "echo 'Build disabled for production'",
-    "preview": "vite preview",
-    "electron": "electron .",
-    "electron:dev": "npm run build:web && electron .",
-    "server": "node api.js",
-    "start": "node api.js",
-    "heroku-postbuild": "echo 'Skipping build'",
-    "setup-icons": "node build/generate-icons.js",
-    "check-build": "node build/check-setup.js",
-    "dist": "npm run check-build && npm run build:web && electron-builder"
+    "dev": "npm --workspace=backend run dev",
+    "dev:client": "npm --workspace=client run dev",
+    "dev:all": "concurrently \"npm --workspace=backend run dev\" \"npm --workspace=client run dev\"",
+    "build:web": "npm --workspace=client run build",
+    "build:desktop": "npm --workspace=desktop run build",
+    "build": "npm --workspace=shared run build && npm --workspace=client run build",
+    "server": "npm --workspace=backend start",
+    "start": "npm --workspace=backend start",
+    "electron": "npm --workspace=desktop run dev",
+    "electron:dev": "npm --workspace=desktop run dev",
+    "lint": "npm --workspaces run lint --if-present",
+    "test": "npm --workspace=backend run test"
   },
   "build": {
     "appId": "com.dogelinx.studio",

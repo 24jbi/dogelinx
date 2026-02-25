@@ -1,0 +1,20 @@
+{
+  "name": "@dogelinx/desktop",
+  "version": "0.1.0",
+  "description": "DogeLinx Studio - Electron Desktop App",
+  "private": true,
+  "main": "electron-main.js",
+  "scripts": {
+    "dev": "npm run build:web && electron .",
+    "build:web": "cd ../client && npm run build",
+    "build": "npm run build:web && electron-builder",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder"
+  },
+  "dependencies": {
+  },
+  "devDependencies": {
+    "electron": "^27.0.0",
+    "electron-builder": "^24.6.4"
+  }
+}

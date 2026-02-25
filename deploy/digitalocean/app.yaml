@@ -1,0 +1,18 @@
+services:
+- name: dogelinx-backend
+  github:
+    repo: USERNAME/dogelinx
+  build_command: cd backend && npm install
+  http_port: 4000
+  run_command: npm start
+  envs:
+  - key: NODE_ENV
+    value: production
+  - key: LOG_LEVEL
+    value: info
+
+- name: dogelinx-client
+  github:
+    repo: USERNAME/dogelinx
+  build_command: npm install && npm --workspace=client run build
+  http_port: 80

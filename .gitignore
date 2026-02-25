@@ -1,4 +1,47 @@
-.env
+# Dependencies
 node_modules/
-/dist
+package-lock.json
+pnpm-lock.yaml
+yarn.lock
+
+# Build outputs
+dist/
+build/
+*.tsbuildinfo
+.next/
+out/
+release/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Env files
+.env
+.env.local
+.env.*.local
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# OS
+Thumbs.db
+
+# Testing
+coverage/
+.nyc_output/
+
+# Deployment
 .vercel
+tmp/
+temp/
+
+# Sensitive files
+*.pem
+*.key

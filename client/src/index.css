@@ -1,0 +1,472 @@
+/* Reset and full-screen layout - critical for Studio feel */
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden; /* prevents page scroll */
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* Main app grid layout (3 rows: ribbon, workspace, output) */
+.dlx-app {
+  height: 100%;
+  display: grid;
+  grid-template-rows: 72px 1fr auto;
+  overflow: hidden;
+  background: #05070d;
+  color: #e5e7eb;
+}
+
+/* Workspace grid (left panel | divider | viewport | divider | right panel) */
+.dlx-workspace {
+  min-height: 0; /* critical: allows child scrolling */
+  display: grid;
+  grid-template-columns: var(--dock-left, 280px) 8px 1fr 8px var(--dock-right, 320px);
+  gap: 0;
+  overflow: hidden;
+}
+
+/* Collapsible output dock */
+.dlx-output-dock {
+  display: grid;
+  grid-template-rows: 28px 1fr;
+  background: #0f1117;
+  border-top: 1px solid #1f2937;
+  overflow: hidden;
+  height: var(--output-height, 160px);
+  transition: height 200ms;
+}
+
+.dlx-output-dock.collapsed {
+  height: 28px;
+}
+
+.dlx-output-body {
+  overflow: auto;
+  min-height: 0;
+}
+
+/* Dividers for resizing panels */
+.dlx-divider {
+  cursor: col-resize;
+  background: #1f2937;
+  transition: background 200ms;
+  width: 8px;
+  user-select: none;
+}
+
+.dlx-divider:hover {
+  background: #2d3748;
+}
+
+/* Panel header with close button */
+.dlx-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 28px;
+  padding: 0 10px;
+  background: #0f1219;
+  border-bottom: 1px solid #1f2937;
+  font-weight: 600;
+  font-size: "12px",
+  color: #cbd5e1;
+  flex-shrink: 0;
+}
+
+.dlx-panel-close {
+  background: transparent;
+  border: none;
+  color: #6b7280;
+  cursor: pointer;
+  font-size: 14px;
+  padding: 0;
+  margin-left: 8px;
+  line-height: 1;
+  transition: color 150ms;
+}
+
+.dlx-panel-close:hover {
+  color: #ef4444;
+}
+
+/* Output header styling */
+.dlx-output-header {
+  height: 28px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 8px;
+  background: #0a0f1f;
+  border-bottom: 1px solid #1f2937;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+  color: #9ca3af;
+  flex-shrink: 0;
+  user-select: none;
+}
+
+.dlx-console-clear {
+  background: transparent;
+  border: none;
+  color: #6b7280;
+  cursor: pointer;
+  font-size: 11px;
+  padding: 2px 6px;
+  border-radius: 3px;
+  transition: all 150ms;
+}
+
+.dlx-console-clear:hover {
+  background: #1f2937;
+  color: #d1d5db;
+}
+
+.dlx-console-close {
+  background: transparent;
+  border: none;
+  color: #6b7280;
+  cursor: pointer;
+  font-size: 14px;
+  padding: 0 4px;
+  line-height: 1;
+  transition: color 150ms;
+}
+
+.dlx-console-close:hover {
+  color: #ef4444;
+}
+
+/* COMMAND BAR */
+.dlx-command-bar-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 100px;
+  z-index: 10000;
+  backdrop-filter: blur(4px);
+  animation: dlx-fade-in 150ms ease-out;
+}
+
+@keyframes dlx-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.dlx-command-bar {
+  width: 500px;
+  background: #0f1117;
+  border: 1px solid #30363d;
+  border-radius: 8px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+  overflow: hidden;
+  font-family: "Menlo", "Monaco", monospace;
+  animation: dlx-slide-up 200ms cubic-bezier(0.33, 0.66, 0.66, 1);
+}
+
+@keyframes dlx-slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.dlx-command-input-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  border-bottom: 1px solid #30363d;
+  background: #05070d;
+}
+
+.dlx-command-icon {
+  color: #60a5fa;
+  font-weight: 600;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+.dlx-command-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: #e5e7eb;
+  font-size: 14px;
+  font-family: inherit;
+  outline: none;
+}
+
+.dlx-command-input::placeholder {
+  color: #4b5563;
+}
+
+.dlx-command-list {
+  max-height: 400px;
+  overflow: auto;
+  background: #0a0f1f;
+}
+
+.dlx-command-item {
+  padding: 10px 16px;
+  cursor: pointer;
+  color: #d1d5db;
+  font-size: 13px;
+  transition: all 150ms;
+  border-bottom: 1px solid #1f2937;
+}
+
+.dlx-command-item:hover {
+  background: #1f2937;
+}
+
+.dlx-command-item.active {
+  background: #1f2937;
+  color: #60a5fa;
+  border-left: 3px solid #60a5fa;
+  padding-left: 13px;
+}
+
+.dlx-command-item-name {
+  font-weight: 500;
+  margin-bottom: 2px;
+}
+
+.dlx-command-item-desc {
+  font-size: 11px;
+  color: #6b7280;
+  margin-top: 2px;
+}
+
+/* Array layout grid - for collapsing panels, use CSS variables */
+.dlx-workspace {
+  min-height: 0;
+  display: grid;
+  grid-template-columns: var(--dock-left, 280px) 8px 1fr 8px var(--dock-right, 320px);
+  gap: 0;
+  overflow: hidden;
+  transition: grid-template-columns 200ms;
+}
+
+/* Dividers for resizing panels */
+.dlx-divider {
+  cursor: col-resize;
+  background: #1f2937;
+  transition: background 200ms;
+  width: 8px;
+  user-select: none;
+}
+
+.dlx-divider:hover {
+  background: #2d3748;
+}
+
+/* Panel header with close button */
+.dlx-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 28px;
+  padding: 0 10px;
+  background: #0f1219;
+  border-bottom: 1px solid #1f2937;
+  font-weight: 600;
+  font-size: "12px",
+  color: #cbd5e1;
+  flex-shrink: 0;
+}
+
+.dlx-panel-close {
+  background: transparent;
+  border: none;
+  color: #6b7280;
+  cursor: pointer;
+  font-size: 14px;
+  padding: 0;
+  margin-left: 8px;
+  line-height: 1;
+  transition: color 150ms;
+}
+
+.dlx-panel-close:hover {
+  color: #ef4444;
+}
+
+/* Output header styling */
+.dlx-output-header {
+  height: 28px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 8px;
+  background: #0a0f1f;
+  border-bottom: 1px solid #1f2937;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+  color: #9ca3af;
+  flex-shrink: 0;
+  user-select: none;
+}
+
+.dlx-console-clear {
+  background: transparent;
+  border: none;
+  color: #6b7280;
+  cursor: pointer;
+  font-size: 11px;
+  padding: 2px 6px;
+  border-radius: 3px;
+  transition: all 150ms;
+}
+
+.dlx-console-clear:hover {
+  background: #1f2937;
+  color: #d1d5db;
+}
+
+.dlx-console-close {
+  background: transparent;
+  border: none;
+  color: #6b7280;
+  cursor: pointer;
+  font-size: 14px;
+  padding: 0 4px;
+  line-height: 1;
+  transition: color 150ms;
+}
+
+.dlx-console-close:hover {
+  color: #ef4444;
+}
+
+.dlx-panel:last-child {
+  border-right: none;
+  border-left: 1px solid #1f2937;
+}
+
+/* Compact toolbar/ribbon styling */
+.dlx-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 24px;
+  padding: 4px 8px;
+  background: #060810;
+  border-bottom: 1px solid #1f2937;
+  user-select: none;
+  gap: 4px;
+}
+
+.dlx-toolbar-left, .dlx-toolbar-right {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.dlx-brand {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 900;
+  letter-spacing: 0.4px;
+  color: #93c5fd;
+  margin-right: 4px;
+  font-size: 12px;
+}
+
+.dlx-brand-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: #60a5fa;
+  box-shadow: 0 0 0 2px rgba(96,165,250,0.15);
+}
+
+.dlx-group {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.dlx-sep {
+  width: 1px;
+  height: 16px;
+  background: #1f2937;
+  margin: 0 2px;
+}
+
+/* Compact buttons (28px height) */
+.dlx-btn {
+  height: 28px;
+  padding: 0 10px;
+  background: #0f1419;
+  color: #cbd5e1;
+  border: 1px solid #1f2937;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 12px;
+  transition: 150ms;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.dlx-btn:hover{ background:#1a2233; border-color:#2d3748; }
+
+.dlx-btn.active{
+  background:#2563eb;
+  border-color:#3b82f6;
+  color:#fff;
+}
+
+.dlx-btn.active:hover{ background:#1d4ed8; }
+
+.dlx-btn.danger{ color:#fecaca; }
+.dlx-btn.danger:hover{ background:#33111a; border-color:#5b1f2b; }
+/* Custom scrollbar styling */
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #3b82f6 #0f1219;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #0f1219;
+  border-radius: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #3b82f6;
+  border-radius: 6px;
+  border: 2px solid #0f1219;
+  min-height: 40px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #60a5fa;
+}

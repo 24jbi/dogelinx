@@ -1,0 +1,29 @@
+services:
+  - type: web
+    name: dogelinx-backend
+    env: node
+    buildCommand: cd backend && npm install
+    startCommand: npm --workspace=backend start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: LOG_LEVEL
+        value: info
+      - key: PORT
+        value: 4000
+
+  - type: web
+    name: dogelinx-client
+    env: node
+    buildCommand: npm install && npm --workspace=client run build
+    startCommand: npx serve -s client/dist -p 3000
+    envVars:
+      - key: VITE_API_URL
+        fromService:
+          name: dogelinx-backend
+          property: url
+
+databases:
+  - name: dogelinx-db
+    databaseName: dogelinx
+    user: dogelinx_user

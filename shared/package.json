@@ -1,0 +1,12 @@
+{
+  "name": "@dogelinx/shared",
+  "version": "0.1.0",
+  "description": "DogeLinx - Shared types and protocol",
+  "private": true,
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+  },
+  "devDependencies": {
+  }
+}

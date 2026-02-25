@@ -16,8 +16,21 @@ const PORT = process.env.PORT || 4000;
 app.use(cors());
 app.use(bodyParser.json());
 
+// Health check endpoint
+app.get('/', (req, res) => {
+  res.json({ ok: true, message: 'DogeLinx API Server is running' });
+});
+
+app.get('/api/health', (req, res) => {
+  res.json({ ok: true, status: 'healthy', timestamp: new Date().toISOString() });
+});
+
 const DATA_DIR = path.join(__dirname, 'server', 'data');
-if (!fs.existsSync(DATA_DIR)) fs.mkdirSync(DATA_DIR, { recursive: true });
+try {
+  if (!fs.existsSync(DATA_DIR)) fs.mkdirSync(DATA_DIR, { recursive: true });
+} catch (err) {
+  console.error('Failed to create data directory:', err);
+}
 
 const GAMES_FILE = path.join(DATA_DIR, 'games.json');
 const USERS_FILE = path.join(DATA_DIR, 'users.json');
@@ -41,10 +54,15 @@ function writeJson(file, data) {
 }
 
 // Initialize files
-if (!fs.existsSync(GAMES_FILE)) writeJson(GAMES_FILE, []);
-if (!fs.existsSync(USERS_FILE)) writeJson(USERS_FILE, []);
-if (!fs.existsSync(ITEMS_FILE)) writeJson(ITEMS_FILE, []);
-if (!fs.existsSync(AVATARS_FILE)) writeJson(AVATARS_FILE, []);
+try {
+  if (!fs.existsSync(GAMES_FILE)) writeJson(GAMES_FILE, []);
+  if (!fs.existsSync(USERS_FILE)) writeJson(USERS_FILE, []);
+  if (!fs.existsSync(ITEMS_FILE)) writeJson(ITEMS_FILE, []);
+  if (!fs.existsSync(AVATARS_FILE)) writeJson(AVATARS_FILE, []);
+  console.log('✅ Data files initialized');
+} catch (err) {
+  console.error('⚠️ Error initializing data files:', err.message);
+}
 
 // API Routes
 app.get('/api/games', (req, res) => {
@@ -173,6 +191,18 @@ app.use((req, res) => {
   res.status(404).json({ ok: false, error: 'Endpoint not found', path: req.path });
 });
 
+// Error handler
+app.use((err, req, res, next) => {
+  console.error('🔴 Server error:', err);
+  res.status(500).json({ ok: false, error: err.message });
+});
+
 app.listen(PORT, () => {
   console.log(`🎮 DogeLinx API Server running on port ${PORT}`);
+  console.log(`📍 Local: http://localhost:${PORT}`);
+  console.log(`🌍 Public: https://veubc5rb.up.railway.app (on Railway)`);
+  console.log(`✅ Health check: GET /api/health`);
+}).on('error', (err) => {
+  console.error('🔴 Server listen error:', err);
+  process.exit(1);
 });

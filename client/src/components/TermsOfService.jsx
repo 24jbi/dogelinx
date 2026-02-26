@@ -6,7 +6,8 @@ export default function TermsOfService({ onAccept, onDecline, showButtons = true
 
   const handleScroll = (e) => {
     const element = e.target;
-    const isAtBottom = element.scrollHeight - element.scrollTop < 100;
+    // Check if we're at the bottom (within 5 pixels)
+    const isAtBottom = element.scrollHeight - element.scrollTop <= 5;
     setScrolledToBottom(isAtBottom);
   };
 

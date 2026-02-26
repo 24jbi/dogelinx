@@ -33,7 +33,7 @@ export async function downloadStudio() {
       // If it's an HTML response (error page), it's likely a routing issue
       if (errorText.includes('<!doctype') || errorText.includes('<html')) {
         throw new Error(
-          `API not found at ${apiUrl}\n\n` +
+          `API not found at ${API_BASE_URL}\n\n` +
           `This means:\n` +
           `1. Backend is not deployed to Render\n` +
           `2. Or VITE_API_URL is not set in Vercel\n` +

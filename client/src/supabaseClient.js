@@ -16,7 +16,7 @@ let supabase = null;
 if (SUPABASE_URL && SUPABASE_ANON_KEY) {
   supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 } else {
-  // Provide a minimal stub so imports won't immediately fail; methods will throw when used.
+  // Provide a complete stub so imports won't fail; methods will throw when used.
   supabase = {
     auth: {
       signInWithOAuth: async () => {
@@ -29,12 +29,21 @@ if (SUPABASE_URL && SUPABASE_ANON_KEY) {
         throw new Error('Supabase not configured. Set VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY in .env');
       },
       getUser: async () => ({ data: { user: null } }),
-      onAuthStateChange: (cb) => ({ data: { subscription: { unsubscribe: () => {} } } }),
+      getSession: async () => ({ data: { session: null } }),
+      onAuthStateChange: () => ({ data: { subscription: { unsubscribe: () => {} } } }),
     },
     from: () => ({
+      select: () => ({ data: null, error: new Error('Supabase not configured') }),
       insert: async () => ({ data: null, error: new Error('Supabase not configured') }),
-      select: async () => ({ data: null, error: new Error('Supabase not configured') }),
+      update: async () => ({ data: null, error: new Error('Supabase not configured') }),
+      delete: async () => ({ data: null, error: new Error('Supabase not configured') }),
     }),
+    storage: {
+      from: () => ({
+        upload: async () => ({ error: new Error('Supabase not configured') }),
+        getPublicUrl: () => ({ data: { publicUrl: '' } }),
+      }),
+    },
   };
 }
 

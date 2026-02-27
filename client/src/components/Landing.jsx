@@ -421,6 +421,7 @@ export default function Landing() {
                 Sign In
               </button>
             )}
+          </nav>
         </div>
       </header>
 

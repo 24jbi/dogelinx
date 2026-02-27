@@ -61,74 +61,77 @@ export default function GamesBrowser() {
 
         .games-grid {
           display: grid;
-          grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-          gap: 24px;
+          grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+          gap: 32px;
           margin-bottom: 40px;
         }
 
         .game-card {
           background: rgba(31, 41, 55, 0.6);
-          border: 1px solid #374151;
-          border-radius: 12px;
-          padding: 20px;
+          border: 2px solid #374151;
+          border-radius: 16px;
+          padding: 24px;
           cursor: pointer;
-          transition: all 250ms ease;
+          transition: all 300ms ease;
           display: flex;
           flex-direction: column;
-          gap: 12px;
+          gap: 16px;
+          height: 100%;
         }
         .game-card:hover {
-          background: rgba(55, 65, 81, 0.8);
+          background: rgba(55, 65, 81, 0.95);
           border-color: #60a5fa;
-          transform: translateY(-4px);
-          box-shadow: 0 8px 24px rgba(96, 165, 250, 0.2);
+          transform: translateY(-8px);
+          box-shadow: 0 16px 40px rgba(96, 165, 250, 0.3);
         }
 
         .game-cover {
           width: 100%;
-          height: 160px;
+          height: 200px;
           background: linear-gradient(135deg, #1e40af 0%, #0c4a6e 100%);
-          border-radius: 8px;
+          border-radius: 12px;
           display: flex;
           align-items: center;
           justify-content: center;
-          font-size: 48px;
+          font-size: 56px;
           color: rgba(255, 255, 255, 0.3);
         }
 
         .game-title {
-          font-size: 18px;
-          font-weight: 700;
+          font-size: 20px;
+          font-weight: 900;
           color: #f0fdf4;
           margin: 0;
         }
         .game-author {
-          font-size: 13px;
+          font-size: 14px;
           color: #9ca3af;
           margin: 0;
         }
         .game-desc {
-          font-size: 14px;
+          font-size: 15px;
           color: #cbd5e1;
           margin: 0;
           flex-grow: 1;
-          line-height: 1.4;
+          line-height: 1.5;
         }
 
         .game-play-btn {
           background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%);
           color: white;
           border: none;
-          padding: 10px 16px;
-          border-radius: 8px;
-          font-weight: 600;
-          font-size: 14px;
+          padding: 14px 24px;
+          border-radius: 10px;
+          font-weight: 900;
+          font-size: 16px;
           cursor: pointer;
-          transition: all 150ms ease;
+          transition: all 200ms ease;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
         }
         .game-play-btn:hover {
-          transform: scale(1.05);
-          box-shadow: 0 4px 12px rgba(96, 165, 250, 0.4);
+          transform: scale(1.08);
+          box-shadow: 0 8px 20px rgba(96, 165, 250, 0.5);
         }
 
         .games-loading,

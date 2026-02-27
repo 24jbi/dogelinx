@@ -183,43 +183,49 @@ export default function Landing() {
 
         .dlx-ctaRow {
           display: flex;
-          gap: 14px;
+          gap: 18px;
           justify-content: center;
           flex-wrap: wrap;
-          margin-top: 18px;
+          margin-top: 32px;
           pointer-events: auto;
         }
         .dlx-btn {
-          padding: 16px 40px;
-          font-size: 16px;
+          padding: 20px 48px;
+          font-size: 18px;
           font-weight: 900;
-          border-radius: 12px;
+          border-radius: 16px;
           cursor: pointer;
           transition: transform 150ms ease, box-shadow 150ms ease, background 150ms ease, border-color 150ms ease;
           pointer-events: auto;
           position: relative;
           z-index: 10;
           border: none;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
         }
         .dlx-btnPrimary {
           background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%);
           color: white;
-          box-shadow: 0 6px 18px rgba(96, 165, 250, 0.35);
+          box-shadow: 0 8px 24px rgba(96, 165, 250, 0.45);
+          min-width: 220px;
         }
         .dlx-btnPrimary:hover {
-          transform: translateY(-2px);
-          box-shadow: 0 10px 22px rgba(96, 165, 250, 0.55);
+          transform: translateY(-3px);
+          box-shadow: 0 14px 32px rgba(96, 165, 250, 0.65);
         }
         .dlx-btnGhost {
-          background: rgba(100, 116, 139, 0.16);
-          color: #cbd5e1;
-          border: 1px solid #14b8a6;
+          background: rgba(20, 184, 166, 0.2);
+          color: #14b8a6;
+          border: 2px solid #14b8a6;
           pointer-events: auto;
+          font-weight: 900;
+          min-width: 200px;
         }
         .dlx-btnGhost:hover {
-          background: rgba(100, 116, 139, 0.28);
+          background: rgba(20, 184, 166, 0.35);
           color: #f0fdf4;
-          transform: translateY(-2px);
+          transform: translateY(-3px);
+          box-shadow: 0 8px 20px rgba(20, 184, 166, 0.4);
         }
         .dlx-btn:disabled {
           opacity: 0.6;
@@ -518,6 +524,25 @@ export default function Landing() {
               <h3 className="dlx-cardTitle">Play in Browser</h3>
               <p className="dlx-cardDesc">Play any published game directly in your browser - no installation required.</p>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Featured Games */}
+      <section className="dlx-section dlx-sectionAlt">
+        <div className="dlx-wrap">
+          <h2>🎮 Play Featured Games</h2>
+          <p style={{ textAlign: "center", fontSize: "18px", color: "#cbd5e1", marginBottom: "40px", maxWidth: "700px", margin: "0 auto 40px auto" }}>
+            Discover amazing games created by the DogeLinx community. Play instantly in your browser with no downloads required.
+          </p>
+          <div style={{ textAlign: "center" }}>
+            <button 
+              className="dlx-btn dlx-btnPrimary" 
+              onClick={() => navigate("/games")}
+              style={{ minWidth: "280px", fontSize: "18px", padding: "24px 56px" }}
+            >
+              🎯 Explore All Games
+            </button>
           </div>
         </div>
       </section>

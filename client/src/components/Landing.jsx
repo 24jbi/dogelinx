@@ -426,7 +426,7 @@ export default function Landing() {
 
       {/* Hero */}
       <section className="dlx-hero dlx-wrap">
-        <h1>Create Amazing Games</h1>
+        <h1>🚀 Create Amazing Games 🚀</h1>
         <p>
           DogeLinx Studio is a Roblox-like platform where you can build, create, and share interactive 3D worlds.
         </p>

@@ -16,6 +16,18 @@
       "dest": "/public/avatar items/$1"
     },
     {
+      "src": "^/.*\\.(js|css|json|woff|woff2|ttf|eot|svg|png|jpg|jpeg|gif|webp)$",
+      "continue": true
+    },
+    {
+      "src": "^/assets/.*",
+      "continue": true
+    },
+    {
+      "src": "^/public/.*",
+      "continue": true
+    },
+    {
       "src": "/(.*)",
       "dest": "/index.html"
     }
